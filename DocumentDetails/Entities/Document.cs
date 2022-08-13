@@ -17,5 +17,6 @@ namespace DocumentDetails.Entities
         public int? ParentId { get; set; }
         [Column("source")]
         public Source Source { get; set; }
+        public List<DocumentLog> Logs { get; set; }
     }
 }
