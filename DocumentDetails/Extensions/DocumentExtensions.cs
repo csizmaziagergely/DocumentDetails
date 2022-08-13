@@ -17,5 +17,22 @@ namespace DocumentDetails.Extensions
                 Source = Enum.Parse<Source>(documentView.source)
             };
         }
+
+        public static List<DocumentView> ToDocumentView(this List<Document> documents)
+        {
+            List<DocumentView> documentViewList = new List<DocumentView>();
+            foreach (var document in documents)
+            {
+                documentViewList.Add( new DocumentView()
+                {
+                    id = document.Id,
+                    title = document.Title,
+                    extension = document.Extension.ToString(),
+                    main_id = document.ParentId ?? 0,
+                    source = document.Source.ToString()
+                });
+            }
+            return documentViewList;
+        }
     }
 }
