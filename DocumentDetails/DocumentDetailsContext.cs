@@ -1,6 +1,10 @@
-﻿using DocumentDetails.Entities;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using DocumentDetails.DTOs;
+using DocumentDetails.Entities;
+using DocumentDetails.Extensions;
 using Microsoft.EntityFrameworkCore;
-
+using System.Globalization;
 
 namespace DocumentDetails
 {
@@ -8,6 +12,7 @@ namespace DocumentDetails
     {
         public DocumentDetailsContext(DbContextOptions<DocumentDetailsContext> options) : base(options)
         {
+
 
         }
 
@@ -19,9 +24,26 @@ namespace DocumentDetails
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Document>().ToTable("dokumentumok");
-            modelBuilder.Entity<DocumentLog>().HasNoKey().ToTable("naplo");
-            modelBuilder.Entity<Event>().ToTable("esemeny");
+            var documents = CsvRead<DocumentView>("dokumentumok.csv").Select(d => d.ToDocumentEntity());
+            var documentLogs = CsvRead<DocumentLogView>("naplo.csv").Select(dl => dl.ToDocumentLogEntity());
+            var events = CsvRead<EventView>("esemeny.csv").Select(e => e.ToEventEntity());
+            modelBuilder.Entity<Document>().ToTable("dokumentumok").HasData(documents);
+            modelBuilder.Entity<DocumentLog>().ToTable("naplo").HasData(documentLogs);
+            modelBuilder.Entity<Event>().ToTable("esemeny").HasData(events);
+        }
+
+        private List<T> CsvRead<T>(string fileName)
+        {
+            string path = Path.Join(Directory.GetCurrentDirectory(), "Data", fileName);
+            using (var reader = new StreamReader(path))
+            {
+                var config = new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = ";" };
+                using (var csv = new CsvReader(reader, config))
+                {
+                    var records = csv.GetRecords<T>();
+                    return records.ToList();
+                }
+            }
         }
     }
 }
