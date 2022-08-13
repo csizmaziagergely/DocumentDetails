@@ -13,8 +13,6 @@ namespace DocumentDetails.Entities
         public string Title { get; set; }
         [Column("extension")]
         public Extension Extension { get; set; }
-        [ForeignKey("ParentId")]
-        public Document? Parent { get; set; }
         [Column("main_id")]
         public int? ParentId { get; set; }
         [Column("source")]

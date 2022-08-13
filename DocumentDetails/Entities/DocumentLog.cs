@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DocumentDetails.Entities
 {
     public class DocumentLog
     {
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
         [Column("dokumentum_id")]
         public int DocumentId { get; set; }
         [ForeignKey("DocumentId")]
