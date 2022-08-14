@@ -39,16 +39,16 @@ namespace DocumentDetails.Services
         public async Task<List<DocumentEvent>> GetDocumentEvents(int documentId)
         {
             var document = await _documentRepository.GetById(documentId);
-            List<DocumentEvent> documentEvents = new List<DocumentEvent>();
-            foreach (var log in document.Logs)
-            {
-                documentEvents.Add(new DocumentEvent()
-                {
-                    HappenedAt = log.HappenedAt.ToString(),
-                    Title = log.Event.Title
-                });
-            }
-            return documentEvents;
+            return document.Logs.ToDocumentEvent();
+        }
+
+        public async Task<List<DocumentView>> GetDocumentsByTitle(string searchString)
+        {
+            var documents = await _documentRepository.GetAll();
+            return documents
+                .Where(d=>d.Title.ToLower().Contains(searchString.ToLower()))
+                .ToList()
+                .ToDocumentView();
         }
     }
 }

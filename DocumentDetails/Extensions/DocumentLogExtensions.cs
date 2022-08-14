@@ -16,5 +16,19 @@ namespace DocumentDetails.Extensions
                 HappenedAt = documentLogView.happened_at
             };
         }
+
+        public static List<DocumentEvent> ToDocumentEvent(this List<DocumentLog> documentLogs)
+        {
+            List<DocumentEvent> documentEvents = new List<DocumentEvent>();
+            foreach (var log in documentLogs)
+            {
+                documentEvents.Add(new DocumentEvent()
+                {
+                    HappenedAt = log.HappenedAt.ToString(),
+                    Title = log.Event.Title
+                });
+            }
+            return documentEvents;
+        }
     }
 }
