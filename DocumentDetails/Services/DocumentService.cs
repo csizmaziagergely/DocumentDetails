@@ -39,7 +39,7 @@ namespace DocumentDetails.Services
         public async Task<List<DocumentEvent>> GetDocumentEvents(int documentId)
         {
             var document = await _documentRepository.GetById(documentId);
-            return document.Logs.ToDocumentEvent();
+            return document.Logs.OrderBy(l=>l.HappenedAt).ToList().ToDocumentEvent();
         }
 
         public async Task<List<DocumentView>> GetDocumentsByTitle(string searchString)
