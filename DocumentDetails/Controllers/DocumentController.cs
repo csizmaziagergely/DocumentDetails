@@ -56,5 +56,21 @@ namespace DocumentDetails.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<List<DocumentEvent>>> GetDocumentsByTitle([FromQuery] string searchString)
+        {
+            try
+            {
+                var events = await _documentService.GetDocumentsByTitle(searchString);
+                return Ok(events);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
+
     }
 }
