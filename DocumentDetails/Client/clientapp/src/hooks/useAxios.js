@@ -15,7 +15,6 @@ function useAxios() {
             response => {
                 return response;
             }, error => {
-                navigate("/");
                 return Promise.reject(error);
             }
         )
