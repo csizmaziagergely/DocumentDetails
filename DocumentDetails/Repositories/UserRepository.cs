@@ -1,4 +1,5 @@
-﻿using DocumentDetails.Entities;
+﻿using DocumentDetails.DTOs;
+using DocumentDetails.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentDetails.Repositories
@@ -15,6 +16,7 @@ namespace DocumentDetails.Repositories
         public async Task<List<User>> GetAll()
         {
             return await _context.Users
+                .Include(u=> u.Logs)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -22,13 +24,16 @@ namespace DocumentDetails.Repositories
         public async Task<User> GetById(int id)
         {
             return await _context.Users
+                .Include(u => u.Logs)
                 .AsNoTracking()
                 .FirstAsync(u => u.Id == id);
         }
 
         public async Task<User> GetByUserName(string userName)
         {
+
             return await _context.Users
+                .Include(u => u.Logs)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.UserName == userName);
         }
@@ -38,10 +43,16 @@ namespace DocumentDetails.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeactivateById(int id)
+        public async Task<User> DeactivateUser(User entity)
         {
-            var userToDeactivate = await GetById(id);
-            userToDeactivate.IsActive = false; 
+            _context.Users.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task AddLog(UserLog entity)
+        {
+            await _context.UserLogs.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
     }
