@@ -20,7 +20,7 @@ namespace DocumentDetails.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserView>> NewUser(UserCreate newUser)
+        public async Task<ActionResult<UserView>> NewUser(UserCreateLogin newUser)
         {
             newUser.Password = _hasher.HashPassword(newUser.Password);
             try
