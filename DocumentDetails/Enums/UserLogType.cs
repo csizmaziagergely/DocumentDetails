@@ -4,6 +4,7 @@
     {
         SuccessfulLogin,
         UnsuccessfulLogin,
-        Deactivation
+        Deactivation,
+        UnsuccessfulDeactivatedLogin
     }
 }
