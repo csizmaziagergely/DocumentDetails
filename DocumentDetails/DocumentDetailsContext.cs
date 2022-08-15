@@ -13,12 +13,12 @@ namespace DocumentDetails
         public DocumentDetailsContext(DbContextOptions<DocumentDetailsContext> options) : base(options)
         {
 
-
         }
 
         public DbSet<Document> Documents { get; set; }
         public DbSet<DocumentLog> DocumentLogs { get; set; }
         public DbSet<Event> EventLogs { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,6 +30,8 @@ namespace DocumentDetails
             modelBuilder.Entity<Document>().ToTable("dokumentumok").HasData(documents);
             modelBuilder.Entity<DocumentLog>().ToTable("naplo").HasData(documentLogs);
             modelBuilder.Entity<Event>().ToTable("esemeny").HasData(events);
+            modelBuilder.Entity<User>().ToTable("User");
+
         }
 
         private List<T> CsvRead<T>(string fileName)
