@@ -1,6 +1,7 @@
 using DocumentDetails;
 using DocumentDetails.Repositories;
 using DocumentDetails.Services;
+using DocumentDetails.Util;
 using Microsoft.EntityFrameworkCore;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -24,6 +25,9 @@ builder.Services.AddDbContext<DocumentDetailsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<DocumentRepository>();
 builder.Services.AddTransient<DocumentService>();
+builder.Services.AddTransient<UserRepository>();
+builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<BCryptPasswordHasher>();
 
 var app = builder.Build();
 
