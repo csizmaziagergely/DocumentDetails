@@ -9,5 +9,6 @@ namespace DocumentDetails.Entities
         public string UserName { get; set; }
         public string HashedPassword { get; set; }
         public bool IsActive { get; set; }
+        public List<UserLog> Logs { get; set; }
     }
 }
