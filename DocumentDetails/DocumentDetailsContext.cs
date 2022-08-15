@@ -19,7 +19,7 @@ namespace DocumentDetails
         public DbSet<DocumentLog> DocumentLogs { get; set; }
         public DbSet<Event> EventLogs { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<User> UserLogs { get; set; }
+        public DbSet<UserLog> UserLogs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
