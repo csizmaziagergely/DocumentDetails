@@ -1,6 +1,7 @@
 ﻿using DocumentDetails.DTOs;
 using DocumentDetails.Entities;
 using DocumentDetails.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentDetails.Controllers
@@ -16,12 +17,15 @@ namespace DocumentDetails.Controllers
             _documentService = documentService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<DocumentView>>> GetAll()
         {
             var documents = await _documentService.GetDocuments();
             return Ok(documents);
         }
+
+        [Authorize]
         [HttpGet("main")]
         public async Task<ActionResult<List<DocumentView>>> GetAllMain()
         {
@@ -29,6 +33,7 @@ namespace DocumentDetails.Controllers
             return Ok(documents);
         }
 
+        [Authorize]
         [HttpGet("{id}/children")]
         public async Task<ActionResult<List<DocumentView>>> GetChildrenById(int id)
         {
@@ -43,6 +48,7 @@ namespace DocumentDetails.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}/events")]
         public async Task<ActionResult<List<DocumentEvent>>> GetEventsById(int id)
         {
@@ -57,6 +63,7 @@ namespace DocumentDetails.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("search")]
         public async Task<ActionResult<List<DocumentEvent>>> GetDocumentsByTitle([FromQuery] string searchString)
         {
