@@ -19,6 +19,7 @@ namespace DocumentDetails
         public DbSet<DocumentLog> DocumentLogs { get; set; }
         public DbSet<Event> EventLogs { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<User> UserLogs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,6 +32,7 @@ namespace DocumentDetails
             modelBuilder.Entity<DocumentLog>().ToTable("naplo").HasData(documentLogs);
             modelBuilder.Entity<Event>().ToTable("esemeny").HasData(events);
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<UserLog>().ToTable("UserLog");
 
         }
 
