@@ -1,5 +1,6 @@
 ﻿using DocumentDetails.DTOs;
 using DocumentDetails.Entities;
+using DocumentDetails.Enums;
 using DocumentDetails.Services;
 using DocumentDetails.Util;
 using Microsoft.AspNetCore.Authorization;
@@ -34,17 +35,30 @@ namespace BpRobotics.Controllers
 
             User user = await _userService.GetByUserName(loginRequest.UserName);
 
+            string ipAddress = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+
+
+
             if (user == null)
             {
+                await _userService.NewUserLog(loginRequest, ipAddress, UserLogType.UnsuccessfulLogin);
                 return Unauthorized("User does not exist");
+            }
+
+            if (!user.IsActive)
+            {
+                await _userService.NewUserLog(loginRequest, ipAddress, UserLogType.UnsuccessfulDeactivatedLogin);
+                return Unauthorized("User is deactivated");
             }
 
             bool isCorrectPassword = _passwordHasher.VerifyPassword(loginRequest.Password, user.HashedPassword);
 
             if (!isCorrectPassword)
             {
+                await _userService.NewUserLog(loginRequest, ipAddress, UserLogType.UnsuccessfulLogin);
                 return Unauthorized("Incorrect password");
             }
+            await _userService.NewUserLog(loginRequest, ipAddress, UserLogType.SuccessfulLogin);
 
             string accessToken = await _authenticator.GetAccessToken(user);
 
