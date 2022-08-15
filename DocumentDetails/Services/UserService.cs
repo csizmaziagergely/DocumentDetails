@@ -1,5 +1,6 @@
 ﻿using BpRobotics.Core.Extensions;
 using DocumentDetails.DTOs;
+using DocumentDetails.Entities;
 using DocumentDetails.Repositories;
 
 namespace DocumentDetails.Services
@@ -11,7 +12,7 @@ namespace DocumentDetails.Services
         {
             _userRepository = userRepository;
         }
-        public async Task<UserView> NewUser(UserCreate newUser)
+        public async Task<UserView> NewUser(UserCreateLogin newUser)
         {
             var userEntity = newUser.ToUserEntity();
             await _userRepository.Add(userEntity);
@@ -19,6 +20,7 @@ namespace DocumentDetails.Services
         }
 
         public async Task<UserView> GetById(int userId) => (await _userRepository.GetById(userId)).ToUserView();
+        public async Task<User> GetByUserName(string userName) => (await _userRepository.GetByUserName(userName));
 
     }
 }

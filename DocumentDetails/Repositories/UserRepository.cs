@@ -30,7 +30,7 @@ namespace DocumentDetails.Repositories
         {
             return await _context.Users
                 .AsNoTracking()
-                .FirstAsync(u => u.UserName == userName);
+                .FirstOrDefaultAsync(u => u.UserName == userName);
         }
         public async Task Add(User entity)
         {
