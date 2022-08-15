@@ -6,7 +6,7 @@ namespace BpRobotics.Core.Extensions
 {
     public static class UserExtensions
     {
-        public static User ToUserEntity(this UserCreate userCreateData)
+        public static User ToUserEntity(this UserCreateLogin userCreateData)
         {
             return new User
             {

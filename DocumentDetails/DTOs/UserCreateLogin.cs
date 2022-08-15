@@ -2,7 +2,7 @@
 
 namespace DocumentDetails.DTOs
 {
-    public class UserCreate
+    public class UserCreateLogin
     {
         [Required]
         [StringLength(32, MinimumLength = 4, ErrorMessage = "Username must be between 4 and 32 characters long")]
