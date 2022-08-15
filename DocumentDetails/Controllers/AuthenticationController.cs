@@ -30,7 +30,7 @@ namespace BpRobotics.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("Username:8-32 character, Password:8-32 character");
             }
 
             User user = await _userService.GetByUserName(loginRequest.UserName);
@@ -60,7 +60,7 @@ namespace BpRobotics.Controllers
             }
             await _userService.NewUserLog(loginRequest, ipAddress, UserLogType.SuccessfulLogin);
 
-            string accessToken = await _authenticator.GetAccessToken(user);
+            AuthenticatedUserResponse accessToken = await _authenticator.GetAccessToken(user);
 
             return Ok(accessToken);
         }

@@ -53,9 +53,14 @@ namespace DocumentDetails.Services
                 claims);
         }
 
-        public async Task<string> GetAccessToken(User user)
+        public async Task<AuthenticatedUserResponse> GetAccessToken(User user)
         {
-            return GenerateAccessToken(user);
+            string accessToken = GenerateAccessToken(user);
+
+            return new AuthenticatedUserResponse()
+            {
+                AccessToken = accessToken
+            };
         }
     }
 }
