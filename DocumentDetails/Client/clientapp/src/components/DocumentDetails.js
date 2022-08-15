@@ -31,12 +31,6 @@ function DocumentDetails() {
     const { data: documentChildrenData, setData: setDocumentChildrenData, fetchError: childrenFetchError, isLoading: childrenIsLoading } = useAxiosFetchGet(childrenUrl);
     const { data: documentEventsData, setData: setDocumentEventsData, fetchError: eventsFetchError, isLoading: eventsIsLoading } = useAxiosFetchGet(eventsUrl);
 
-  
-    const forceUpdate = () => {
-        setDocumentChildrenData([...documentChildrenData]);
-        setDocumentEventsData([...documentEventsData]);
-    }
-
     const renderDocument = (document) => {
         return (
         <Tr>
@@ -56,7 +50,9 @@ function DocumentDetails() {
     }
     return (<> 
     {documentChildrenData.length>0 && <>
-    <Form.Control type="text" placeholder="Type to filter by title..." onChange={(e) => changeFilter(e)}/>
+    <Form>
+      <Form.Control type="text" placeholder="Type to filter by title..." onChange={(e) => changeFilter(e)}/>
+    </Form>
     <h3>Related documents</h3>
     <Table>
       <Thead>
