@@ -3,8 +3,11 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import useAuth from './hooks/useAuth';
 
 function App() {
+  const { auth, logout } = useAuth();
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +23,15 @@ function App() {
             <LinkContainer to="/documents">
               <Nav.Link>Documents</Nav.Link>
             </LinkContainer>
+            {!auth && <LinkContainer to="/login">
+              <Nav.Link>Login</Nav.Link>
+            </LinkContainer>}
+            {!auth && <LinkContainer to="/registration">
+              <Nav.Link>Registration</Nav.Link>
+            </LinkContainer>}
+            {auth && <LinkContainer to="/">
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
+            </LinkContainer>}
           </Nav>
           </Navbar.Collapse>
           </Container>

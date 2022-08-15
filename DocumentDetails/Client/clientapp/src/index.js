@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
 import Documents from './components/Documents';
+import Login from './components/Login';
+import Registration from './components/Registration';
 import DocumentDetails from './components/DocumentDetails';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -18,6 +20,8 @@ root.render(
           <Route index element={<Home />} />
           <Route path="documents" element={<Documents />} />
           <Route path="documents/:id" element={<DocumentDetails />} />
+          <Route path="login" element={<Login />} />
+          <Route path="registration" element={<Registration />} />
         </Route>
       </Routes>
     </BrowserRouter>
