@@ -1,9 +1,18 @@
-import React from 'react'
+import { useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
+function Home() {
+    const { auth, logout, isTokenExpired } = useAuth();
+
+    useEffect(() => {
+        if (!isTokenExpired()) {
+            logout();
+        }
+    })
+
+    return (
+        <div>You are {!auth && "not "}logged in</div>
+    )
 }
 
-export default Home
+export default Home;

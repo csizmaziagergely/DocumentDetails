@@ -31,7 +31,17 @@ function useAuth() {
         localStorage.removeItem("auth");
         navigate("/");
     }
-    return { auth, login, logout };
+
+    const isTokenExpired = () => {
+        if (!auth) {
+            return true
+        }
+        const { exp } = jwtDecode(auth?.accessToken)
+
+        return (Date.now() < exp * 1000)
+    }
+
+    return { auth, login, logout, isTokenExpired };
 }
 
 export default useAuth;
