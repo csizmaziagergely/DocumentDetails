@@ -10,11 +10,15 @@ import Login from './components/Login';
 import Registration from './components/Registration';
 import DocumentDetails from './components/DocumentDetails';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthProvider from './context/AuthProvider';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <AuthProvider>
+
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
@@ -24,6 +28,8 @@ root.render(
           <Route path="registration" element={<Registration />} />
         </Route>
       </Routes>
+      </AuthProvider>
+
     </BrowserRouter>
   </React.StrictMode>
 );
