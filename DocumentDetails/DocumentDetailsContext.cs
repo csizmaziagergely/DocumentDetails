@@ -31,7 +31,7 @@ namespace DocumentDetails
             modelBuilder.Entity<Document>().ToTable("dokumentumok").HasData(documents);
             modelBuilder.Entity<DocumentLog>().ToTable("naplo").HasData(documentLogs);
             modelBuilder.Entity<Event>().ToTable("esemeny").HasData(events);
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().ToTable("User").HasAlternateKey(u => u.UserName);
             modelBuilder.Entity<UserLog>().ToTable("UserLog");
 
         }
