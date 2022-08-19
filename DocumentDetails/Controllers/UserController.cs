@@ -22,6 +22,10 @@ namespace DocumentDetails.Controllers
         [HttpPost]
         public async Task<ActionResult<UserView>> NewUser(UserCreateLogin newUser)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             newUser.Password = _hasher.HashPassword(newUser.Password);
             try
             {
@@ -30,7 +34,7 @@ namespace DocumentDetails.Controllers
             }
             catch (DbUpdateException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest("Username already exists.");
             }
         }
 
