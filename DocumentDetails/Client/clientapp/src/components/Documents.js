@@ -40,6 +40,7 @@ function Documents() {
     <Form>
     <Form.Control type="text" placeholder="Type to filter by title..." onChange={(e) => changeFilter(e)}/>
     </Form>
+    <br></br>
     <Table>
       <Thead>
         <Tr>

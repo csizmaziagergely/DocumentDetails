@@ -53,6 +53,8 @@ function DocumentDetails() {
     <Form>
       <Form.Control type="text" placeholder="Type to filter by title..." onChange={(e) => changeFilter(e)}/>
     </Form>
+    <br></br>
+
     <h3>Related documents</h3>
     <Table>
       <Thead>
